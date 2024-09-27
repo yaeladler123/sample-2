@@ -28,10 +28,18 @@ jobs:
           -H 'Content-Type: application/json' \
           -H "Authorization: Bearer ${{ cloudbees.api.token }}"
 
-      - name: Test workflow allowed
+      - name: Test workflow allowed success
         uses: docker://byrnedo/alpine-curl
         shell: sh
         run: |
-          echo "hello wf allowed"
+          echo "hello wf allowed success"
           curl -v https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123 \
             -H "Authorization: Bearer ${{ cloudbees.api.token }}"
+
+      - name: Test workflow allowed fail
+        uses: docker://byrnedo/alpine-curl
+        shell: sh
+        run: |
+          echo "hello wf allowed fail"
+          curl -v https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123 \
+            -H "Authorization: Bearer 12345"
