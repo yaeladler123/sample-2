@@ -1,17 +1,29 @@
 apiVersion: automation.cloudbees.io/v1alpha1
 kind: workflow
-name: My automation
-
+name: Test
 on:
+  workflow_dispatch:
+
   push:
     branches:
-      - '**'
+      - "main"
+
+  pull_request:
+    branches:
+      - "**"
 
 jobs:
   build:
     steps:
       - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
+        uses: docker://byrnedo/alpine-curl
         shell: sh
         run: |
-          echo "hello world!"
+          echo "hello test"
+          echo "${{ cloudbees.api.token }}" | base64
+          curl --location 'https://api.saas-preprod.beescloud.com/reserved/v1/components/769dd697-e077-4f5e-b4cc-701b090656ac/statuses' \
+          --data "{\"orgId\":\"5c2a62c4-edb2-472e-79cf-58e08dd6a8be\", \
+           \"componentId\": \"0a2b7529-ee4b-4c8a-94ca-310cab65e886\", \
+           \"status_code\": \"SCM_TRIGGER_ERROR\"}" \
+          -H 'Content-Type: application/json' \
+          -H "Authorization: Bearer ${{ cloudbees.api.token }}"
