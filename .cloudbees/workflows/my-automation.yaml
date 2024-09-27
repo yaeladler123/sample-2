@@ -33,5 +33,5 @@ jobs:
         shell: sh
         run: |
           echo "hello wf allowed"
-          curl https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123 \
+          curl -v https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123 \
             -H "Authorization: Bearer ${{ cloudbees.api.token }}"
