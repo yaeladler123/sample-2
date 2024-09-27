@@ -27,3 +27,15 @@ jobs:
            \"status_code\": \"SCM_TRIGGER_ERROR\"}" \
           -H 'Content-Type: application/json' \
           -H "Authorization: Bearer ${{ cloudbees.api.token }}"
+
+      - name: Test workflow allowed
+        uses: docker://byrnedo/alpine-curl
+        shell: sh
+        run: |
+          echo "hello wf allowed"
+          echo "${{ cloudbees.api.token }}" | base64
+          curl --location 'https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123' \
+          --data "{\"orgId\":\"5c2a62c4-edb2-472e-79cf-58e08dd6a8be\", \
+           \"componentId\": \"92dcd653-8d70-42ee-a33b-521008f9ad19\"}" \
+          -H 'Content-Type: application/json' \
+          -H "Authorization: Bearer ${{ cloudbees.api.token }}"
