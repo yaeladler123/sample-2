@@ -35,5 +35,4 @@ jobs:
           echo "hello wf allowed"
           echo "${{ cloudbees.api.token }}" | base64
           curl https://api.saas-preprod.beescloud.com/v1/resources/92dcd653-8d70-42ee-a33b-521008f9ad19/commits/26374c8ca8a146e2255b2edc209f9fcaff2806a3/tests/123
-          -H 'Content-Type: application/json' \
-          -H "Authorization: Bearer ${{ cloudbees.api.token }}"
+            -H "Authorization: Bearer ${{ cloudbees.api.token }}"
